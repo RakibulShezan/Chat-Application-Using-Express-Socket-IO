@@ -50,20 +50,22 @@
             text: "Could not delete the user!",
             duration: 3000,
         });
-        
+      
         // delete user function
         async function deleteUser(userId) {
             let response = await fetch(`/users/${userId}`, {
                 method: "DELETE",
             });
             let result = await response.json();
+            console.log(result);
             if (result.errors) {
                 deleteErrorToast.showToast();
             } else {
+                
                 deleteToast.showToast();
                 document.getElementById(userId).remove();
             }
         }
     </script>
   </body>
-</html>
+</html> 
