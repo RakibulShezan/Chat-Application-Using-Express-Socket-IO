@@ -22,7 +22,7 @@ async function login(req, res, next) {
       if (isValidPassword) {
         //prepare user object to generate token
         const userObject = {
-          username: user.username,
+          username: user.name,
           mobile: user.mobile,
           email: user.email,
           role: "user",
@@ -41,7 +41,6 @@ async function login(req, res, next) {
 
         // save the logged in user's details to the local variable in client side
         res.locals.loggedInUser = userObject;
-
         res.render("inbox");
       } else {
         throw createError('"Failed to log in! Please try again..');
@@ -62,8 +61,13 @@ async function login(req, res, next) {
     });
   }
 }
+function logout(req, res) {
+  res.clearCookie(process.env.COOKIE_NAME);
+  res.send("Logged Out!");
+}
 
 module.exports = {
   getLogin,
   login,
+  logout,
 };
